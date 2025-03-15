@@ -1,20 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import LoginScreen from './LoginScreen';
+import SuccessScreen from './SuccessScreen';
 
-export default function App() {
+const App = () => {
+  const [currentScreen, setCurrentScreen] = useState('LoginScreen');
+
+  // Custom navigation object
+  const navigation = {
+    navigate: (screenName) => {
+      setCurrentScreen(screenName);
+    }
+  };
+
+  // Render screens based on current screen state
+  const renderScreen = () => {
+    switch (currentScreen) {
+      case 'LoginScreen':
+        return <LoginScreen navigation={navigation} />;
+      case 'SuccessScreen':
+        return <SuccessScreen navigation={navigation} />;
+      default:
+        return <LoginScreen navigation={navigation} />;
+    }
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={{ flex: 1 }}>
+      {renderScreen()}
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
