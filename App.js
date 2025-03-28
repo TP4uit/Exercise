@@ -1,34 +1,28 @@
-import React, { useState } from 'react';
-import { View } from 'react-native';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+// Import các màn hình
 import LoginScreen from './LoginScreen';
-import SuccessScreen from './SuccessScreen';
+import CourseListScreen from './CourseListScreen';
+import CourseDetailsScreen from './CourseDetailsScreen';
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
-  const [currentScreen, setCurrentScreen] = useState('LoginScreen');
-
-  // Custom navigation object
-  const navigation = {
-    navigate: (screenName) => {
-      setCurrentScreen(screenName);
-    }
-  };
-
-  // Render screens based on current screen state
-  const renderScreen = () => {
-    switch (currentScreen) {
-      case 'LoginScreen':
-        return <LoginScreen navigation={navigation} />;
-      case 'SuccessScreen':
-        return <SuccessScreen navigation={navigation} />;
-      default:
-        return <LoginScreen navigation={navigation} />;
-    }
-  };
-
   return (
-    <View style={{ flex: 1 }}>
-      {renderScreen()}
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="LoginScreen"
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen name="CourseList" component={CourseListScreen} />
+        <Stack.Screen name="CourseDetails" component={CourseDetailsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

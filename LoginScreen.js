@@ -21,8 +21,11 @@ const LoginScreen = ({ navigation }) => {
       // Clear any previous error messages
       setErrorMessage('');
       
-      // Navigate to success screen
-      navigation.navigate('SuccessScreen');
+      // Navigate to course list screen with user data
+      navigation.navigate('CourseList', {
+        userId: '12345',
+        userName: 'Admin User'
+      });
     } else {
       // Set error message instead of using Alert
       setErrorMessage('Incorrect username or password');
@@ -133,4 +136,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default LoginScreen;q
